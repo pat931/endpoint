@@ -1,19 +1,44 @@
 import csv
+import re
 import sys
 sys.path.insert(0, "API/restaurants/apis/models.py")
-# fromimport Restaurant
+import Restaurant
 def run():
-    days_of_week = ["Mon","Tue","Wens","Thurs","Fri","Sat","Sun"]
     with open("restaurants.csv") as f:
         reader = csv.reader(f)
         for row in reader:
             if row[0]:
                 restaurant_name=row[0]
-            # if row[2]:
-            #     times = row[1].split("/")
-            #     for time in times:
-            #         if "Mon-Sun" in time
-                print(restaurant_name)       
+                if "/" in row[1]:
+                    times = row[1].split("/")
+                    for time in times:
+                        # if any(day.lower() in time.lower() for day in days_of_week.keys()):
+                        if "," in time:
+                            days = re.findall("(^[a-zA-Z]*-[a-zA-Z]*),* ([a-zA-Z]*)",time)
+                            hours = re.findall("[0-9]*:*[0-9]* [am|pm]",time)
+                        else:
+                            days = re.findall("[a-zA-Z][a-zA-Z][a-zA-Z][a-zA-Z]*-*[a-zA-Z]*",time)
+                            hours = re.findall("[0-9]*:*[0-9]* [am|pm]",time)
+
+                        print(restaurant_name + ":" + str(days[0]) + str(hours))
+                        
+                else:
+                    time = row[1]
+                    days = re.findall("^[a-zA-Z]*-*[a-zA-Z]*",time)
+                    hours = re.findall("[0-9]*:*[0-9]* [am|pm]",time)
+                    print(restaurant_name + ":" + str(days[0]) + str(hours))
+
+def time_of_week(weekday,opening,closing):
+    days_of_week = {"Mon":,"Tues","Wens","Thurs","Fri","Sat","Sun"]
+        if "-" not in weekday:
+            day = Restaurant()
+
+
+
+
+                # for time in times:
+                #     if "Mon-Sun" in time
+                # print(times)       
 
 
 
