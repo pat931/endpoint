@@ -3,7 +3,7 @@ from django.db import models
 TIME_format = ['%I:%M %p',]
 
 class Restaurant(models.Model):
-    restaurant_name = models.CharField(max_length=100)
+    restaurant_name = models.CharField(max_length=80)
     hours_of_operation_monday_open =  models.TimeField()
     hours_of_operation_monday_close = models.TimeField()
     hours_of_operation_tuesday_open = models.TimeField()
