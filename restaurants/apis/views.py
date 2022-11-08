@@ -4,17 +4,8 @@ from rest_framework import permissions
 from rest_framework.views import APIView
 from django.contrib.auth.models import User, Group
 from restaurants.apis.serializers import UserSerializer, GroupSerializer,RestaurantInfoSerializer,RestaurantSerializer
-from rest_framework.decorators import api_view
-from rest_framework.response import Response
 from .models import Restaurant
-from rest_framework import status
 from django.db import connection
-from django.shortcuts import get_object_or_404
-from django.http import HttpResponse
-from django.http import JsonResponse
-from django.core import serializers
-from django.shortcuts import render
-import json as simplejson
 
 class RestaurantsApiView(viewsets.ModelViewSet):
     """
@@ -121,3 +112,6 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     permission_classes = [permissions.IsAuthenticated]
+
+def page_not_found_view(request, exception):
+        return render(request, '404.html', status=404)
