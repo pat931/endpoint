@@ -79,30 +79,28 @@ class RestaurantsApiViewDetails(viewsets.ModelViewSet):
                 serializer = RestaurantInfoSerializer(r,many=True)
                 return serializer.data
 
-
-
             if day == "Tuesday":
-                r = Restaurant.objects.filter(hours_of_operation_tuesday_open__lte=time_strip,hours_of_operation_tuesday_open__gte=time_strip)
+                r = Restaurant.objects.filter(hours_of_operation_tuesday_open_time__lte=time_strip,hours_of_operation_tuesday_close_time__gte=time_strip)
                 serializer = RestaurantInfoSerializer(r,many=True)
                 return serializer.data
             if day == "Wenesday":
-                r = Restaurant.objects.filter(hours_of_operation_wenesday_open__lte=time_strip,hours_of_operation_wenesday_open__gte=time_strip)
+                r = Restaurant.objects.filter(hours_of_operation_wenesday_open_time__lte=time_strip,hours_of_operation_wenesday_close_time__gte=time_strip)
                 serializer = RestaurantInfoSerializer(r,many=True)
                 return serializer.data
             if day == "Thursay":
-                r = Restaurant.objects.filter(hours_of_operation_thursay_open__lte=time_strip,hours_of_operation_thursay_open__gte=time_strip)
+                r = Restaurant.objects.filter(hours_of_operation_thursay_open_time__lte=time_strip,hours_of_operation_thursay_close_time__gte=time_strip)
                 serializer = RestaurantInfoSerializer(r,many=True)
                 return serializer.data
             if day == "Friday":
-                r = Restaurant.objects.filter(hours_of_operation_friday_open__lte=time_strip,hours_of_operation_friday_open__gte=time_strip)
+                r = Restaurant.objects.filter(hours_of_operation_friday_open_time__lte=time_strip,hours_of_operation_friday_close_time__gte=time_strip)
                 serializer = RestaurantInfoSerializer(r,many=True)
                 return serializer.data
             if day == "Saturday":
-                r = Restaurant.objects.filter(hours_of_operation_saturday_open__lte=time_strip,hours_of_operation_saturday_open__gte=time_strip)
+                r = Restaurant.objects.filter(hours_of_operation_saturday_open_time__lte=time_strip,hours_of_operation_saturday_close_time__gte=time_strip)
                 serializer = RestaurantInfoSerializer(r,many=True)
                 return serializer.data
             if day == "Sunday":
-                r = Restaurant.objects.filter(hours_of_operation_sunday_open__lte=time_strip,hours_of_operation_sunday_open__gte=time_strip)
+                r = Restaurant.objects.filter(hours_of_operation_sunday_open_time__lte=time_strip,hours_of_operation_sunday_close_time__gte=time_strip)
                 serializer = RestaurantInfoSerializer(r,many=True)
                 return serializer.data
     
