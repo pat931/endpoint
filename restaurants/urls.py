@@ -15,18 +15,49 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.contrib.auth.models import User
 from rest_framework import routers
-from restaurants.apis.views import restaurantsViewSet,UserViewSet,GroupViewSet
+from rest_framework.routers import DefaultRouter
+from rest_framework import routers, serializers, viewsets
+from restaurants.apis.models import Restaurant
+from restaurants.apis.views import RestaurantsApiView,UserViewSet,GroupViewSet,RestaurantsApiViewDetails
+
+# class UserSerializer(serializers.HyperlinkedModelSerializer):
+#     class Meta:
+#         model = User
+#         fields = ['url', 'username', 'email', 'is_staff'] 
+
+# class RestaurantSerializer(serializers.HyperlinkedModelSerializer):
+#     class Meta:
+#         model = Restaurant
+#         fields = ['restaurant_name', 'hours_of_operation_monday_open', 'hours_of_operation_monday_close']
+# class RestaurantSerializer(serializers.HyperlinkedModelSerializer):
+#     class Meta:
+#         model = Restaurant
+#         fields = ['restaurant_name', 'hours_of_operation_monday_open', 'hours_of_operation_monday_close']
+
 
 router = routers.DefaultRouter()
-router.register(r'restaurants',restaurantsViewSet)
+router.register(r'restaurants',RestaurantsApiView,basename='restaurants')
+router.register(r'restaurantsinfo',RestaurantsApiViewDetails,basename='restaurantsapi')
+# router.register(r'restaurants/info',RestaurantsApiView,basename='RestaurantsQueryApiView')
 router.register(r'users', UserViewSet)
 router.register(r'groups', GroupViewSet)
 
 # Wire up our API using automatic URL routing.
 # Additionally, we include login URLs for the browsable API.
 urlpatterns = [
-    path('', include(router.urls)),
+    path('', include(router.urls)), 
+    # path('restuarant',RestaurantsApiView.as_view({'get': 'get_query'})),
+    # path('restuarantinfo',RestaurantsApiViewDetails.as_view({'get': 'get_query'})),
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls)
 ]
+# [
+#     # path('api/v1/info/',RestaurantsApiView.as_view({'get': 'list'}),name="restaurant"),
+#     path('^restuarant/info/', RestaurantsApiView.get_queryset),
+#     # path("^", include(router.urls)),
+#     path('', include(router.urls)),
+#     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+#     path('admin/', admin.site.urls),
+#     ]
